@@ -53,16 +53,27 @@
     Private Sub btn_exec_Click(sender As Object, e As EventArgs) Handles btn_exec.Click
         btn_exec.Enabled = False
         Application.DoEvents()
-        Dim xColor() As Color = {Color.Red, Color.Blue, Color.Green, Color.Pink, Color.Purple, Color.DarkGray}
+        Dim xColor() As Color = {Color.Red, Color.Blue, Color.Green, Color.Pink, Color.Purple, Color.DarkGray, Color.Aquamarine}
 
         Dim requestFields As BMC.ARSystem.EntryListFieldList = New BMC.ARSystem.EntryListFieldList
         requestFields.Add(New BMC.ARSystem.EntryListField(3)) 'Time
-        requestFields.Add(New BMC.ARSystem.EntryListField(913)) 'API Proc Time
-        requestFields.Add(New BMC.ARSystem.EntryListField(940)) 'Filter Proc Time
-        requestFields.Add(New BMC.ARSystem.EntryListField(953)) 'DB SQL Proc Time
-        requestFields.Add(New BMC.ARSystem.EntryListField(951)) 'ARServer Proc Time
-        'requestFields.Add(New BMC.ARSystem.EntryListField(958)) 'Network Time
         requestFields.Add(New BMC.ARSystem.EntryListField(905)) 'User Count
+
+        'requestFields.Add(New BMC.ARSystem.EntryListField(913)) 'API Proc Time
+        'requestFields.Add(New BMC.ARSystem.EntryListField(940)) 'Filter Proc Time
+        'requestFields.Add(New BMC.ARSystem.EntryListField(953)) 'DB SQL Proc Time
+        'requestFields.Add(New BMC.ARSystem.EntryListField(951)) 'ARServer Proc Time
+
+        'requestFields.Add(New BMC.ARSystem.EntryListField(958)) 'Network Time
+
+        requestFields.Add(New BMC.ARSystem.EntryListField(920)) 'Set
+        requestFields.Add(New BMC.ARSystem.EntryListField(922)) 'Create
+        'requestFields.Add(New BMC.ARSystem.EntryListField(925)) 'Delete
+        'requestFields.Add(New BMC.ARSystem.EntryListField(927)) 'Merge
+        requestFields.Add(New BMC.ARSystem.EntryListField(928)) 'GetList
+        requestFields.Add(New BMC.ARSystem.EntryListField(930)) 'GetEntry
+
+
 
         For i = 0 To requestFields.Count - 1
             If Chart1.Series.Count > i Then
@@ -131,6 +142,23 @@
                         Chart1.Series("Series" & i).LegendText = "Network"
                     ElseIf row.FieldValues.Keys(i) = 905 Then
                         Chart1.Series("Series" & i).LegendText = "User"
+
+                    ElseIf row.FieldValues.Keys(i) = 920 Then
+                        Chart1.Series("Series" & i).LegendText = "Set"
+                    ElseIf row.FieldValues.Keys(i) = 922 Then
+                        Chart1.Series("Series" & i).LegendText = "Create"
+                    ElseIf row.FieldValues.Keys(i) = 925 Then
+                        Chart1.Series("Series" & i).LegendText = "Delete"
+                    ElseIf row.FieldValues.Keys(i) = 927 Then
+                        Chart1.Series("Series" & i).LegendText = "Merge"
+                    ElseIf row.FieldValues.Keys(i) = 928 Then
+                        Chart1.Series("Series" & i).LegendText = "GetList"
+                    ElseIf row.FieldValues.Keys(i) = 930 Then
+                        Chart1.Series("Series" & i).LegendText = "GetEntry"
+
+
+                    ElseIf row.FieldValues.Keys(i) = 3 Then
+                        Chart1.Series("Series" & i).LegendText = "X-Achse"
                     Else
                         Chart1.Series("Series" & i).LegendText = row.FieldValues.Keys(i)
                     End If

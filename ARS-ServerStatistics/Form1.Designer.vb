@@ -200,7 +200,7 @@ Partial Class Form1
         Me.Controls.Add(Me.SplitContainer1)
         Me.MinimumSize = New System.Drawing.Size(1190, 320)
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "ARS-ServerStatistics © Andreas Kreisl"
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel1.PerformLayout()
