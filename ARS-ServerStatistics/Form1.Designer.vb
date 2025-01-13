@@ -38,6 +38,7 @@ Partial Class Form1
         Me.btn_exec = New System.Windows.Forms.Button()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.txt_filter1 = New System.Windows.Forms.TextBox()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -171,6 +172,7 @@ Partial Class Form1
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.txt_filter1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txt_Server)
         Me.SplitContainer1.Panel1.Controls.Add(Me.btn_exec)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label14)
@@ -191,6 +193,13 @@ Partial Class Form1
         Me.SplitContainer1.Size = New System.Drawing.Size(1174, 601)
         Me.SplitContainer1.SplitterDistance = 48
         Me.SplitContainer1.TabIndex = 84
+        '
+        'txt_filter1
+        '
+        Me.txt_filter1.Location = New System.Drawing.Point(881, 1)
+        Me.txt_filter1.Name = "txt_filter1"
+        Me.txt_filter1.Size = New System.Drawing.Size(200, 20)
+        Me.txt_filter1.TabIndex = 83
         '
         'Form1
         '
@@ -225,4 +234,5 @@ Partial Class Form1
     Friend WithEvents btn_exec As Button
     Friend WithEvents Chart1 As DataVisualization.Charting.Chart
     Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents txt_filter1 As TextBox
 End Class

@@ -1,7 +1,7 @@
 ﻿Public Class Form1
     Dim oServer As BMC.ARSystem.Server
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If Date.Now.Year > 2020 Or Date.Now.Month > 9 Then
+        If Date.Now.Year > 2025 Or Date.Now.Month > 12 Then
             MsgBox("Trial Period Expired! Please contact the Developer.", vbExclamation, "Unregistered Version")
             Application.Exit()
         End If
@@ -59,19 +59,19 @@
         requestFields.Add(New BMC.ARSystem.EntryListField(3)) 'Time
         requestFields.Add(New BMC.ARSystem.EntryListField(905)) 'User Count
 
-        'requestFields.Add(New BMC.ARSystem.EntryListField(913)) 'API Proc Time
-        'requestFields.Add(New BMC.ARSystem.EntryListField(940)) 'Filter Proc Time
-        'requestFields.Add(New BMC.ARSystem.EntryListField(953)) 'DB SQL Proc Time
-        'requestFields.Add(New BMC.ARSystem.EntryListField(951)) 'ARServer Proc Time
+        requestFields.Add(New BMC.ARSystem.EntryListField(913)) 'API Proc Time
+        requestFields.Add(New BMC.ARSystem.EntryListField(940)) 'Filter Proc Time
+        requestFields.Add(New BMC.ARSystem.EntryListField(953)) 'DB SQL Proc Time
+        requestFields.Add(New BMC.ARSystem.EntryListField(951)) 'ARServer Proc Time
 
         'requestFields.Add(New BMC.ARSystem.EntryListField(958)) 'Network Time
 
-        requestFields.Add(New BMC.ARSystem.EntryListField(920)) 'Set
-        requestFields.Add(New BMC.ARSystem.EntryListField(922)) 'Create
+        'requestFields.Add(New BMC.ARSystem.EntryListField(920)) 'Set
+        'requestFields.Add(New BMC.ARSystem.EntryListField(922)) 'Create
         'requestFields.Add(New BMC.ARSystem.EntryListField(925)) 'Delete
         'requestFields.Add(New BMC.ARSystem.EntryListField(927)) 'Merge
-        requestFields.Add(New BMC.ARSystem.EntryListField(928)) 'GetList
-        requestFields.Add(New BMC.ARSystem.EntryListField(930)) 'GetEntry
+        'requestFields.Add(New BMC.ARSystem.EntryListField(928)) 'GetList
+        'requestFields.Add(New BMC.ARSystem.EntryListField(930)) 'GetEntry
 
 
 
@@ -95,7 +95,11 @@
         Dim uTime As Double
         uTime = (DateTimePicker1.Value.Date - New Date(1970, 1, 1, 0, 0, 0)).TotalSeconds
         Console.WriteLine("'3' >= " & uTime & " AND '3' < " & (uTime + 86400))
-        result = oServer.GetListEntryWithFields("Server Statistics", "'3' >= " & uTime & " AND '3' < " & (uTime + 86400 * 7), requestFields, 0, 1000)
+        If txt_filter1.Text <> "" Then
+            result = oServer.GetListEntryWithFields("Server Statistics", "'3' >= " & uTime & " AND '3' < " & (uTime + 86400 * 1) & " AND '974' = """ & txt_filter1.Text & """", requestFields, 0, 1000)
+        Else
+            result = oServer.GetListEntryWithFields("Server Statistics", "'3' >= " & uTime & " AND '3' < " & (uTime + 86400 * 1), requestFields, 0, 1000)
+        End If
 
 
         Chart1.ChartAreas(0).AxisX.Interval = 1
@@ -135,7 +139,7 @@
                     ElseIf row.FieldValues.Keys(i) = 940 Then
                         Chart1.Series("Series" & i).LegendText = "FILTER"
                     ElseIf row.FieldValues.Keys(i) = 953 Then
-                        Chart1.Series("Series" & i).LegendText = "SQL"
+                        Chart1.Series("Series" & i).LegendText = "DB"
                     ElseIf row.FieldValues.Keys(i) = 951 Then
                         Chart1.Series("Series" & i).LegendText = "ARServer"
                     ElseIf row.FieldValues.Keys(i) = 958 Then
@@ -175,6 +179,10 @@
     End Sub
 
     Private Sub Chart1_Click(sender As Object, e As EventArgs) Handles Chart1.Click
+
+    End Sub
+
+    Private Sub txt_filter1_TextChanged(sender As Object, e As EventArgs) Handles txt_filter1.TextChanged
 
     End Sub
 End Class
